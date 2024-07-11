@@ -22,24 +22,26 @@ $(".singers h3").click((e) => {
 
 let countDownDate = new Date("Sep 1, 2024 23:59:59").getTime();
 
-setInterval(() => {
+let counter = setInterval(() => {
   let dateNow = new Date().getTime();
   
   let dateDiff = countDownDate - dateNow;
   
-  let days = Math.floor(dateDiff / (1000 * 60 * 60 * 24));
-  days < 10 ? days = "0" + days : days;
-  let hours = Math.floor((dateDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  hours < 10 ? hours = "0" + hours: hours;
-  let minutes = Math.floor((dateDiff % (1000 * 60 * 60)) / (1000 * 60));
-  minutes < 10 ? minutes = "0" + minutes : minutes;
-  let seconds = Math.floor((dateDiff % (1000 * 60)) / 1000);
-  seconds < 10 ? (seconds = "0" + seconds) : seconds;
-
-  document.getElementById("days").textContent = days;
-  document.getElementById("hours").textContent = hours;
-  document.getElementById("minutes").textContent = minutes;
-  document.getElementById("seconds").textContent = seconds;
+  if (dateDiff < 0) {
+    clearInterval(counter);
+    console.log("clear");
+    document.getElementById("time-over").textContent = "the time has ended"
+  } else {
+    let days = Math.floor(dateDiff / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((dateDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((dateDiff % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((dateDiff % (1000 * 60)) / 1000);
+    
+    document.getElementById("days").textContent = days < 10 ? days = "0" + days : days;
+    document.getElementById("hours").textContent = hours < 10 ? hours = "0" + hours: hours;
+    document.getElementById("minutes").textContent = minutes < 10 ? minutes = "0" + minutes : minutes;
+    document.getElementById("seconds").textContent = seconds < 10 ? seconds = "0" + seconds : seconds;
+  }
 }, 1000);
 
 function charCount() {
